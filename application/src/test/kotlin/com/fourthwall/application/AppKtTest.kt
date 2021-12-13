@@ -1,4 +1,4 @@
-package com.fourthwall.cinemaapi
+package com.fourthwall.application
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

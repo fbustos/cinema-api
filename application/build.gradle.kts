@@ -1,5 +1,5 @@
 application {
-    mainClass.set("com.fourthwall.cinemaapi.AppKt")
+    mainClass.set("com.fourthwall.application.AppKt")
 }
 
 plugins {
@@ -13,8 +13,8 @@ dependencies {
     implementation(project(":infrastructure"))
 
 //    implementation("org.springframework.boot:spring-boot-starter-actuator")
-//    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("org.springframework.boot:spring-boot-starter-data-rest")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude("org.springframework.boot:spring-boot-starter-tomcat")
     }
