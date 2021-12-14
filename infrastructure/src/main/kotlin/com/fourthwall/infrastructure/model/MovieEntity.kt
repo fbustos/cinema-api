@@ -30,9 +30,42 @@ class MovieEntity(
 
     @Column(nullable = true)
     @OneToMany(cascade = [CascadeType.ALL])
-    val times: List<MovieTimeEntity>? = null
+    val times: List<MovieTimeEntity>? = null,
+
+    @Column(nullable = true)
+    val rating: Double? = null,
+
+    @Column(nullable = false)
+    val rateCount: Int? = null,
 ) {
     fun toDomain(): Movie {
-        return Movie(id!!.toString(), imdbId!!, title!!, price!!, times?.map { it.toDomain() } ?: emptyList())
+        return Movie(
+            id!!.toString(),
+            imdbId!!,
+            title!!,
+            price!!,
+            times?.map { it.toDomain() } ?: emptyList(),
+            rating,
+            rateCount!!
+        )
+    }
+
+    companion object {
+        fun from(movie: Movie): MovieEntity {
+            return MovieEntity(
+                UUID.fromString(movie.id),
+                movie.imdbId,
+                movie.title,
+                movie.price,
+                movie.times.map { mt ->
+                    MovieTimeEntity(
+                        mt.id.ifBlank { null }?.let { UUID.fromString(it) },
+                        mt.time
+                    )
+                },
+                movie.avgRating,
+                movie.rateCount
+            )
+        }
     }
 }

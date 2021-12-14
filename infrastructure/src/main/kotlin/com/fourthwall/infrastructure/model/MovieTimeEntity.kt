@@ -21,6 +21,6 @@ class MovieTimeEntity(
     val time: String? = null
 ) {
     fun toDomain(): Movie.MovieTime {
-        return Movie.MovieTime(time!!.toString())
+        return Movie.MovieTime(id!!.toString(), time!!.toString())
     }
 }

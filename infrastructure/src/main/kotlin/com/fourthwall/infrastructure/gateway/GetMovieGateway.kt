@@ -4,7 +4,7 @@ import com.fourthwall.core.domain.model.Movie
 import com.fourthwall.core.port.input.query.GetMovieQuery
 import com.fourthwall.core.port.output.GetMoviePort
 import com.fourthwall.infrastructure.client.OmdbClient
-import com.fourthwall.infrastructure.model.MovieNotFoundException
+import com.fourthwall.infrastructure.model.exception.MovieNotFoundException
 import com.fourthwall.infrastructure.repository.MovieRepository
 import java.util.*
 

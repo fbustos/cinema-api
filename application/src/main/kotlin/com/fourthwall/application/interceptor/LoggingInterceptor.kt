@@ -1,4 +1,4 @@
-package com.fourthwall.application
+package com.fourthwall.application.interceptor
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpRequest

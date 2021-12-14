@@ -1,24 +1,28 @@
 package com.fourthwall.application.configuration
 
-import com.fourthwall.application.LoggingInterceptor
 import com.fourthwall.application.handler.AddMovieHandler
+import com.fourthwall.application.handler.EditMovieHandler
 import com.fourthwall.application.handler.FindMoviesHandler
 import com.fourthwall.application.handler.GetMovieHandler
+import com.fourthwall.application.interceptor.LoggingInterceptor
 import com.fourthwall.core.domain.usecase.AddMovie
+import com.fourthwall.core.domain.usecase.EditMovie
 import com.fourthwall.core.domain.usecase.FindMovies
 import com.fourthwall.core.domain.usecase.GetMovie
 import com.fourthwall.core.port.input.AddMovieUseCase
+import com.fourthwall.core.port.input.EditMovieUseCase
 import com.fourthwall.core.port.input.FindMoviesUseCase
 import com.fourthwall.core.port.input.GetMovieUseCase
 import com.fourthwall.core.port.output.AddMoviePort
+import com.fourthwall.core.port.output.EditMoviePort
 import com.fourthwall.core.port.output.FindMoviesPort
 import com.fourthwall.core.port.output.GetMoviePort
 import com.fourthwall.infrastructure.client.OmdbClient
 import com.fourthwall.infrastructure.gateway.AddMovieGateway
+import com.fourthwall.infrastructure.gateway.EditMovieGateway
 import com.fourthwall.infrastructure.gateway.FindMoviesGateway
 import com.fourthwall.infrastructure.gateway.GetMovieGateway
 import com.fourthwall.infrastructure.repository.MovieRepository
-import org.eclipse.jetty.http.HttpHeader
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -27,12 +31,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
-import org.springframework.http.MediaType
-import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.http.converter.HttpMessageConverter
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.client.RestTemplate
-import java.util.*
 
 
 @Configuration
@@ -74,6 +73,22 @@ open class MovieConfiguration(
     @Bean
     open fun addMoviePort(): AddMoviePort {
         return AddMovieGateway(movieRepository)
+    }
+
+    /// Edit Movie
+    @Bean
+    open fun editMovieHandler(editMovieUseCase: EditMovieUseCase): EditMovieHandler {
+        return EditMovieHandler(editMovieUseCase)
+    }
+
+    @Bean
+    open fun editMovieUseCase(editMoviePort: EditMoviePort, getMoviePort: GetMoviePort): EditMovieUseCase {
+        return EditMovie(editMoviePort, getMoviePort)
+    }
+
+    @Bean
+    open fun editMoviePort(): EditMoviePort {
+        return EditMovieGateway(movieRepository)
     }
 
     /// Get Movie

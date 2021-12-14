@@ -19,7 +19,9 @@ class AddMovieGateway(
                     imdbId = imdbId,
                     title = title,
                     price = price,
-                    times = times?.map { MovieTimeEntity(time = it) })
+                    times = times?.map { MovieTimeEntity(time = it) },
+                    rateCount = 0
+                )
             ).toDomain()
         }
     }

@@ -8,9 +8,12 @@ data class Movie(
     val title: String,
     val price: BigDecimal,
     val times: List<MovieTime>,
+    val avgRating: Double? = null,
+    val rateCount: Int = 0,
     val details: MovieDetails? = null
 ) {
     data class MovieTime(
+        val id: String,
         val time: String
     )
 

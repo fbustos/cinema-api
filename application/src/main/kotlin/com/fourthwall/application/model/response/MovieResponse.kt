@@ -9,6 +9,7 @@ data class MovieResponse(
     val title: String,
     val price: BigDecimal,
     val times: List<String>,
+    val rating: Double?,
     val details: MovieDetailsResponse? = null
 ) {
     data class MovieDetailsResponse(
@@ -37,6 +38,7 @@ data class MovieResponse(
                 movie.title,
                 movie.price,
                 movie.times.map { it.time },
+                movie.avgRating,
                 movie.details?.let { MovieDetailsResponse.from(it) }
             )
         }
