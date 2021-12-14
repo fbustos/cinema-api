@@ -7,9 +7,17 @@ data class Movie(
     val imdbId: String,
     val title: String,
     val price: BigDecimal,
-    val times: List<MovieTime>
+    val times: List<MovieTime>,
+    val details: MovieDetails? = null
 ) {
     data class MovieTime(
         val time: String
+    )
+
+    data class MovieDetails(
+        val description: String,
+        val releaseDate: String,
+        val imdbRating: String,
+        val runtime: String
     )
 }

@@ -2,10 +2,10 @@ package com.fourthwall.application.model.response
 
 import com.fourthwall.core.domain.model.Movie
 
-data class FindMoviesResponse(val data: List<MovieResponse>) {
+data class MoviesResponse(val data: List<MovieResponse>) {
     companion object {
-        fun from(movies: List<Movie>): FindMoviesResponse {
-            return FindMoviesResponse(
+        fun from(movies: List<Movie>): MoviesResponse {
+            return MoviesResponse(
                 movies.map { MovieResponse.from(it) }
             )
         }

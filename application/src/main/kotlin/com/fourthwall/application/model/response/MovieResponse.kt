@@ -8,8 +8,27 @@ data class MovieResponse(
     val imdbId: String,
     val title: String,
     val price: BigDecimal,
-    val times: List<String>
+    val times: List<String>,
+    val details: MovieDetailsResponse? = null
 ) {
+    data class MovieDetailsResponse(
+        val description: String,
+        val releaseDate: String,
+        val imdbRating: String,
+        val runtime: String
+    ) {
+        companion object {
+            fun from(details: Movie.MovieDetails): MovieDetailsResponse {
+                return MovieDetailsResponse(
+                    details.description,
+                    details.releaseDate,
+                    details.imdbRating,
+                    details.runtime
+                )
+            }
+        }
+    }
+
     companion object {
         fun from(movie: Movie): MovieResponse {
             return MovieResponse(
@@ -17,7 +36,8 @@ data class MovieResponse(
                 movie.imdbId,
                 movie.title,
                 movie.price,
-                movie.times.map { it.time }
+                movie.times.map { it.time },
+                movie.details?.let { MovieDetailsResponse.from(it) }
             )
         }
     }
