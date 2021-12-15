@@ -16,6 +16,21 @@ In terminal run
 docker-compose up --build
 ```
 
+Or run App.kt in Intellij after run postgres container
+
+## Docs
+- http://localhost:8080/docs.html
+```
+Swagger documentation
+```
+
+## Metrics
+- http://localhost:8080/actuator/metrics
+```
+Api metrics
+```
+
+
 ## Endpoints
  - POST http://localhost:8080/movies
 ```
@@ -32,14 +47,6 @@ Find movie details. Fetch from OMDB service the movie details depending on :deta
  - PATCH http://localhost:8080/movies/{movieId}
 ```
 Edit movie, specifically made to rate the movie.
-```
-- PATCH http://localhost:8080/docs.html
-```
-Swagger documentation
-```
-- PATCH http://localhost:8080/actuator/metrics
-```
-Api metrics
 ```
 
 ## Design Decisions
