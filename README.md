@@ -58,3 +58,7 @@ Api metrics
 
 - <strong>Application</strong>
   The Application module is the one unites everything and configures the framework to be used to run the service.
+
+## Pending
+- Unit tests
+- Integration tests
