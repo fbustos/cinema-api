@@ -1,19 +1,21 @@
 package com.fourthwall.application.controller
 
 import com.fourthwall.application.handler.AddMovieHandler
+import com.fourthwall.application.handler.EditMovieHandler
 import com.fourthwall.application.handler.FindMoviesHandler
 import com.fourthwall.application.handler.GetMovieHandler
-import com.fourthwall.application.handler.EditMovieHandler
 import com.fourthwall.application.model.request.AddMovieRequest
 import com.fourthwall.application.model.request.EditMovieRequest
-import com.fourthwall.application.model.response.MoviesResponse
 import com.fourthwall.application.model.response.MovieResponse
+import com.fourthwall.application.model.response.MoviesResponse
 import org.springframework.http.HttpStatus
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/movies")
+@Validated
 class MovieController(
     private val findMoviesHandler: FindMoviesHandler,
     private val addMovieHandler: AddMovieHandler,
@@ -23,8 +25,8 @@ class MovieController(
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun findMovies(@RequestParam movies: List<String>?): MoviesResponse {
-        return findMoviesHandler(movies)
+    fun findMovies(@RequestParam moviesIds: List<String>?): MoviesResponse {
+        return findMoviesHandler(moviesIds)
     }
 
     @PostMapping

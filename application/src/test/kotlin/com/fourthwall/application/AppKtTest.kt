@@ -1,13 +1,10 @@
 package com.fourthwall.application
 
-import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
-
-@SpringBootTest
-class AppKtTest {
-
-	@Test
-	fun contextLoads() {
-	}
-
-}
+//@SpringBootTest
+//class AppKtTest {
+//
+//	@Test
+//	fun contextLoads() {
+//	}
+//
+//}

@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  app:
+    container_name: app
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgresql
+    environment:
+      - apiKey=${apiKey}
+      - adminPass=${adminPass}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/cinemadb
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=cinema
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  dbpostgresql:
+    image: postgres
+    container_name: dbpostgresql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=cinema
+      - POSTGRES_USER=sa
+      - POSTGRES_DB=cinemadb

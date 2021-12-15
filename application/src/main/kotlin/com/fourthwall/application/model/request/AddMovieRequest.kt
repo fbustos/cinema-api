@@ -5,15 +5,15 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class AddMovieRequest(
-    @NotNull
-    @NotBlank
+    @field:NotNull
+    @field:NotBlank
     val imdbId: String?,
 
-    @NotNull
-    @NotBlank
+    @field:NotNull
+    @field:NotBlank
     val title: String?,
 
-    @NotNull
+    @field:NotNull
     val price: BigDecimal?,
 
     val times: List<String>?

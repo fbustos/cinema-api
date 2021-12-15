@@ -30,7 +30,11 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.env.Environment
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+import org.springframework.retry.backoff.FixedBackOffPolicy
+import org.springframework.retry.policy.SimpleRetryPolicy
+import org.springframework.retry.support.RetryTemplate
 import org.springframework.web.client.RestTemplate
 
 
@@ -108,8 +112,8 @@ open class MovieConfiguration(
     }
 
     @Bean
-    open fun omdbClient(restTemplate: RestTemplate): OmdbClient {
-        return OmdbClient(restTemplate, System.getenv("apiKey"))
+    open fun omdbClient(restTemplate: RestTemplate, retryTemplate: RetryTemplate): OmdbClient {
+        return OmdbClient(restTemplate, retryTemplate, System.getenv("apiKey"))
     }
 
     @Bean
@@ -118,5 +122,20 @@ open class MovieConfiguration(
             .interceptors(loggingInterceptor)
             .defaultHeader("Content-Type", "application/json;charset=UTF-8")
             .build()
+    }
+
+    @Bean
+    open fun retryTemplate(env: Environment): RetryTemplate? {
+        val retryTemplate = RetryTemplate()
+
+        val fixedBackOffPolicy = FixedBackOffPolicy()
+        fixedBackOffPolicy.backOffPeriod = env.getProperty("retryTimeInterval")?.toLong() ?: 2000L
+        retryTemplate.setBackOffPolicy(fixedBackOffPolicy)
+
+        val retryPolicy = SimpleRetryPolicy()
+        retryPolicy.maxAttempts = env.getProperty("maxAttempt")?.toInt() ?: 2
+        retryTemplate.setRetryPolicy(retryPolicy)
+
+        return retryTemplate
     }
 }
