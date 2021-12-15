@@ -44,6 +44,8 @@ Api metrics
 
 ## Design Decisions
 - The relationship between movie and time is in another table, allowing in the future store more information about that relationship
+- Rating is modeled in Movie table because I assume we don't need to store information about who is rating the movie or how many rates the movie has.
+- Not auditory fields because is a challenge.
 - Postgres is used as database engine, because I can't see this model changing frequently.
 - Springboot is chosen as framework because it gives me resolved microservice features for this challenge purpose.
 - Hexagonal Architecture is implemented because is easy to extend for coworkers.
